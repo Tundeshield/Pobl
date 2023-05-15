@@ -29,7 +29,7 @@ const StarterRequestCard = () => {
       <div className="mt-2 mx-2 flex items-start align-center">
         <FormControlLabel
           control={<Checkbox onChange={() => setCompleted(!completed)} />}
-          label={completed ? "Completed" : "Uncompleted"}
+          label={completed ? "completed" : "uncompleted"}
         />
         <IconButton
           color="#ff5858"
