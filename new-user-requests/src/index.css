@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Rubik:wght@400;500;700&family=Source+Sans+Pro:wght@400;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,13 +10,13 @@ body,
 .app {
   height: 100%;
   width: 100%;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Roboto", sans-serif;
   position: relative;
   padding: 0px;
 }
 
 .footer {
-  position: absolute;
+  position: sticky;
   bottom: 0;
   width: 100%;
 }
