@@ -52,6 +52,7 @@ const StarterRequestCard = ({ request, handleRequestDelete }) => {
       </div>
       <div className="mt-2 mx-2 flex items-start align-center">
         <FormControlLabel
+
           control={
             <Checkbox
               checked={isCompleted}
@@ -59,6 +60,7 @@ const StarterRequestCard = ({ request, handleRequestDelete }) => {
             />
           }
           label={isCompleted ? "Completed" : "Uncompleted"}
+
         />
         <IconButton
           color="#ff5858"

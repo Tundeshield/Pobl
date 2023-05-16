@@ -28,11 +28,11 @@ const FilterContainer = () => {
           </AccordionSummary>
           <AccordionDetails>
             <FormGroup>
-              <FormControlLabel control={<Checkbox />} label="IT" />
-              <FormControlLabel control={<Checkbox />} label="Finance" />
-              <FormControlLabel control={<Checkbox />} label="HR" />
-              <FormControlLabel control={<Checkbox />} label="Housing" />
-              <FormControlLabel control={<Checkbox />} label="Care" />
+              <FormControlLabel control={<Checkbox />} label="IT (12)" />
+              <FormControlLabel control={<Checkbox />} label="Finance (24)" />
+              <FormControlLabel control={<Checkbox />} label="HR (17)" />
+              <FormControlLabel control={<Checkbox />} label="Housing (9)" />
+              <FormControlLabel control={<Checkbox />} label="Care (124)" />
             </FormGroup>
           </AccordionDetails>
         </Accordion>
