@@ -12,6 +12,12 @@ const StarterRequests = () => {
     const response = await api.get("/requests");
     return response.data;
   };
+
+  //Filtered search
+  const filteredSearch = async (searchTerm) => {
+    const response = await api.get(`/requests?businessArea=${searchTerm}`);
+    return response.data;
+  };
   //SideEffect when the page loads
   useEffect(() => {
     const getRequests = async () => {
@@ -29,8 +35,6 @@ const StarterRequests = () => {
     const updateRequestsList = requests.filter((item) => item.id !== id);
     setRequests(updateRequestsList);
   };
-
-  
 
   return (
     <div className="m-auto flex flex-col  sm:flex-row justify-between w-5/6 mt-8 p-2 space-x-8 relative">
