@@ -6,6 +6,7 @@ import api from "../api/requests";
 const StarterRequests = () => {
   const [loading, setLoading] = useState(true);
   const [requests, setRequests] = useState([]);
+  const [error, setError] = useState("");
   const [businessAreas, setBusinessAreas] = useState([
     { id: 1, checked: false, searchTerm: "IT", label: "IT" },
     { id: 2, checked: false, searchTerm: "Finance", label: "Finance" },
@@ -16,21 +17,13 @@ const StarterRequests = () => {
 
   //Method to fetch all requests
   const fetchRequests = async () => {
-    const response = await api.get("/requests");
-    return response.data;
+    try {
+      const response = await api.get("/requests");
+      return response.data;
+    } catch (error) {
+      throw new Error("Error fethcing the requests. Check the server");
+    }
   };
-
-  //SideEffect when the page loads, all requests are fethched
-  useEffect(() => {
-    const getRequests = async () => {
-      const allRequests = await fetchRequests();
-      if (allRequests) {
-        setLoading(false);
-        setRequests(allRequests);
-      }
-    };
-    getRequests();
-  }, []);
 
   //Handle the checked categories to filter out items previously selected
   const handleChangeWhenChecked = (id) => {
@@ -62,18 +55,42 @@ const StarterRequests = () => {
       .join("&");
 
     // //prefixeach that is above index1 with &businessArea={searchTerm}
-    const query = `/requests?${queryParameters}`;
-    const response = await api.get(query);
-    const data = await response.data;
-    setRequests(data);
+    try {
+      const query = `/requests?${queryParameters}`;
+      const response = await api.get(query);
+      const data = await response.data;
+      setRequests(data);
+    } catch (error) {
+      throw new Error("Error fetching result");
+    }
   };
 
-  //Delete
+  //Delete Request
   const handleRequestDelete = async (id) => {
-    await api.delete(`/requests/${id}`);
+    try {
+      await api.delete(`/requests/${id}`);
+    } catch (error) {
+      throw new Error("Error...");
+    }
     const updateRequestsList = requests.filter((item) => item.id !== id);
     setRequests(updateRequestsList);
   };
+
+  //SideEffect when the page loads, all requests are fethched
+  useEffect(() => {
+    const getRequests = async () => {
+      try {
+        const allRequests = await fetchRequests();
+        if (allRequests) {
+          setLoading(false);
+          setRequests(allRequests);
+        }
+      } catch (error) {
+        throw new Error("Error fetching data");
+      }
+    };
+    getRequests();
+  }, []);
 
   return (
     <div className="m-auto flex flex-col  sm:flex-row justify-between w-5/6 mt-8 p-2 space-x-8 relative">
