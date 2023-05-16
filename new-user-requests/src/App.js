@@ -14,7 +14,7 @@ function App() {
       <Routes>
         {/* General Routes*/}
         <Route path="/" element={<CreateStarterRequestPage />} />
-        <Route path="/all-requests" element={<StarterRequests />} />
+        <Route path="/all-requests/:searchParams?" element={<StarterRequests />} />
         <Route path="/all-requests/edit/:id" element={<EditStarterRequest />} />
       </Routes>
       <Footer />

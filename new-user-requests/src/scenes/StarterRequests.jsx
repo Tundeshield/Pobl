@@ -6,6 +6,13 @@ import api from "../api/requests";
 const StarterRequests = () => {
   const [loading, setLoading] = useState(true);
   const [requests, setRequests] = useState([]);
+  const [businessAreas, setBusinessAreas] = useState([
+    { id: 1, checked: false, searchTerm: "IT", label: "IT" },
+    { id: 2, checked: false, searchTerm: "Finance", label: "Finance" },
+    { id: 3, checked: false, searchTerm: "Housing", label: "Housing" },
+    { id: 4, checked: false, searchTerm: "Care", label: "Care" },
+    { id: 5, checked: false, searchTerm: "Hr", label: "Hr" },
+  ]);
 
   //Method to fetch all requests
   const fetchRequests = async () => {
@@ -13,12 +20,7 @@ const StarterRequests = () => {
     return response.data;
   };
 
-  //Filtered search
-  const filteredSearch = async (searchTerm) => {
-    const response = await api.get(`/requests?businessArea=${searchTerm}`);
-    return response.data;
-  };
-  //SideEffect when the page loads
+  //SideEffect when the page loads, all requests are fethched
   useEffect(() => {
     const getRequests = async () => {
       const allRequests = await fetchRequests();
@@ -30,6 +32,43 @@ const StarterRequests = () => {
     getRequests();
   }, []);
 
+  //Handle the checked categories to filter out items previously selected
+  const handleChangeWhenChecked = (id) => {
+    const categories = businessAreas;
+    const changeCheckedCategories = categories.map((item) =>
+      item.id === id ? { ...item, checked: !item.checked } : item
+    );
+    setBusinessAreas(changeCheckedCategories);
+    return changeCheckedCategories;
+  };
+
+  //Method to bring out all necessary search terms
+  const GetSearchPhrasesFromSelection = () => {
+    const checkedCategories = handleChangeWhenChecked();
+    //filter where items checked is true
+    const checkedSearch = checkedCategories.filter(
+      (item) => item.checked === true
+    );
+    const searchPhrases = checkedSearch.map((item) => item.searchTerm);
+    return searchPhrases;
+  };
+
+  //Filtered search method to effect the search parameters
+  const FetchSearchTermsFromApi = async () => {
+    const searchPhrases = GetSearchPhrasesFromSelection();
+    //Query parameters
+    const queryParameters = searchPhrases
+      .map((value) => `businessArea=${value}`)
+      .join("&");
+
+    // //prefixeach that is above index1 with &businessArea={searchTerm}
+    const query = `/requests?${queryParameters}`;
+    const response = await api.get(query);
+    const data = await response.data;
+    setRequests(data);
+  };
+
+  //Delete
   const handleRequestDelete = async (id) => {
     await api.delete(`/requests/${id}`);
     const updateRequestsList = requests.filter((item) => item.id !== id);
@@ -60,7 +99,11 @@ const StarterRequests = () => {
         ))}
       </div>
       <div className="p-2 w-auto h-fit rounded-lg bg-gray-100">
-        <FilterContainer />
+        <FilterContainer
+          changedChecked={handleChangeWhenChecked}
+          businessAreas={businessAreas}
+          FetchSearchTermsFromApi={FetchSearchTermsFromApi}
+        />
       </div>
     </div>
   );

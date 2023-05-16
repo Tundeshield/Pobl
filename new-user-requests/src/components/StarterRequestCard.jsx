@@ -17,7 +17,6 @@ const StarterRequestCard = ({ request, handleRequestDelete }) => {
       completed: isCompleted,
     });
     const result = await response.data;
-    console.log(result);
     return result;
   };
 
@@ -59,7 +58,6 @@ const StarterRequestCard = ({ request, handleRequestDelete }) => {
             />
           }
           label={isCompleted ? "Completed" : "Uncompleted"}
-
         />
         <IconButton
           color="#ff5858"
