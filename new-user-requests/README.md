@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Candidate Readme to run code
+
+In the project directory, after installing all the dependencies, kindly run the Json Web Server with:
+
+## `json-server --watch data/data.json --port 8000`
+
 ## Available Scripts
 
 In the project directory, you can run:
