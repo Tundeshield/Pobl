@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import CreateStarterRequestPage from "./scenes/CreateStarterRequestPage";
 import StarterRequests from "./scenes/StarterRequests";
-import StarterRequest from "./scenes/StarterRequest";
+import EditStarterRequest from "./scenes/EditStarterRequest";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         {/* General Routes*/}
         <Route path="/" element={<CreateStarterRequestPage />} />
         <Route path="/all-requests" element={<StarterRequests />} />
-        <Route path="/all-requests/:id" element={<StarterRequest />} />
+        <Route path="/all-requests/edit/:id" element={<EditStarterRequest />} />
       </Routes>
       <Footer />
     </div>
