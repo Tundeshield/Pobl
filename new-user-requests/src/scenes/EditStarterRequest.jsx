@@ -11,7 +11,7 @@ const EditStarterRequest = () => {
   const [lineManager, setLineManager] = useState("");
   const [startDate, setStartDate] = useState("");
   const [businessArea, setBusinessArea] = useState("");
-  const [isCompleted, setIsCompleted] = useState(null);
+  const [isCompleted, setIsCompleted] = useState();
   const [error, setError] = useState("");
   const [posting, setPosting] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -53,7 +53,7 @@ const EditStarterRequest = () => {
       businessArea,
       completed: isCompleted,
     };
-    console.log(data.completed, "is this completed or not");
+
     api
       .put(`/requests/${id}`, data)
       .then((response) => {
@@ -194,15 +194,7 @@ const EditStarterRequest = () => {
                   </option>
                 </select>
               </div>
-              <div className="mb-6">
-                <FormControlLabel
-                  control={
-                    <Checkbox onChange={() => setIsCompleted(!isCompleted)} />
-                  }
-                  checked={isCompleted}
-                  label={isCompleted ? "Completed" : "Uncompleted"}
-                />
-              </div>
+
               <Button>Update Request</Button>
             </form>
           </section>
