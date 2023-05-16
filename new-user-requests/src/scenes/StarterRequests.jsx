@@ -30,13 +30,7 @@ const StarterRequests = () => {
     setRequests(updateRequestsList);
   };
 
-  // const handleCompleted = async (id) => {
-  //   //post completed to the particular request card
-  //   //Find the particular card
-  //   const starterRequest = requests.find((item) => item.id === id);
-  //   //update the completed aspect of the card
-
-  // };
+  
 
   return (
     <div className="m-auto flex flex-col  sm:flex-row justify-between w-5/6 mt-8 p-2 space-x-8 relative">
