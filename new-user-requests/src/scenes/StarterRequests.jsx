@@ -20,18 +20,6 @@ const StarterRequests = () => {
     return response.data;
   };
 
-  //SideEffect when the page loads, all requests are fethched
-  useEffect(() => {
-    const getRequests = async () => {
-      const allRequests = await fetchRequests();
-      if (allRequests) {
-        setLoading(false);
-        setRequests(allRequests);
-      }
-    };
-    getRequests();
-  }, []);
-
   //Handle the checked categories to filter out items previously selected
   const handleChangeWhenChecked = (id) => {
     const categories = businessAreas;
@@ -68,12 +56,24 @@ const StarterRequests = () => {
     setRequests(data);
   };
 
-  //Delete
+  //Delete Request
   const handleRequestDelete = async (id) => {
     await api.delete(`/requests/${id}`);
     const updateRequestsList = requests.filter((item) => item.id !== id);
     setRequests(updateRequestsList);
   };
+
+  //SideEffect when the page loads, all requests are fethched
+  useEffect(() => {
+    const getRequests = async () => {
+      const allRequests = await fetchRequests();
+      if (allRequests) {
+        setLoading(false);
+        setRequests(allRequests);
+      }
+    };
+    getRequests();
+  }, []);
 
   return (
     <div className="m-auto flex flex-col  sm:flex-row justify-between w-5/6 mt-8 p-2 space-x-8 relative">
