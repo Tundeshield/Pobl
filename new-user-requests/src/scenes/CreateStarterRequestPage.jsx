@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import getRandomNumber from "../asset/getRandomNumber";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-//import { addNewStarterRequest } from "../state/Requests";
+import { addNewStarterRequest } from "../state/requests";
 import { useNavigate } from "react-router-dom";
 import Container from "../components/Container";
+import { v4 as uuid } from "uuid";
+import api from "../api/requests";
 
 const CreateStarterRequestPage = () => {
   const [firstName, setFirstname] = useState("");
@@ -11,15 +12,15 @@ const CreateStarterRequestPage = () => {
   const [lineManager, setLineManager] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [businessArea, setBusinessArea] = useState("");
-  const [completed, setCompleted] = useState(false);
-
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      id: getRandomNumber(),
+      id: uuid(),
       firstName,
       lastName,
       lineManager,
@@ -27,10 +28,20 @@ const CreateStarterRequestPage = () => {
       businessArea,
       completed: false,
     };
-
-    //Push to redux store
-    //dispatch(addNewStarterRequest(data));
-    //redirect to another page
+    //Asychronously post item to server
+    api
+      .post("/requests", data)
+      .then((response) => {
+        response.statusText === "Created"
+          ? setSuccess(true)
+          : setSuccess(false);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+    //Dispatch new request to redux store
+    dispatch(addNewStarterRequest(data));
+    //Navigate to list of requests
     navigate("/all-requests");
   };
 
